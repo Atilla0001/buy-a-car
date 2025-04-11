@@ -1,26 +1,69 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+import emailjs from '@emailjs/browser'
 import './Iletisim.css'
 
 const Iletisim = () => {
-  const [formData, setFormData] = useState({
-    ad: '',
-    email: '',
-    konu: '',
-    mesaj: ''
-  })
+  const form = useRef()
+  const [gonderildi, setGonderildi] = useState(false)
+  const [hata, setHata] = useState(null)
+  const [yukleniyor, setYukleniyor] = useState(false)
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
-  }
+  // EmailJS'i başlat
+  useEffect(() => {
+    // EmailJS'i başlatmadan önce bir süre bekleyelim
+    const timer = setTimeout(() => {
+      emailjs.init("tPxxxxxxxxxxxxxx")
+    }, 1000)
+    
+    return () => clearTimeout(timer)
+  }, [])
 
-  const handleSubmit = (e) => {
+  const sendEmail = (e) => {
     e.preventDefault()
-    // Form gönderme işlemi burada yapılacak
-    console.log('Form verileri:', formData)
+    setGonderildi(false)
+    setHata(null)
+    setYukleniyor(true)
+
+    // Form verilerini al
+    const formData = new FormData(form.current)
+    const data = {
+      user_name: formData.get('user_name'),
+      user_email: formData.get('user_email'),
+      subject: formData.get('subject'),
+      message: formData.get('message')
+    }
+
+    // Email gönderme işlemi - alternatif yaklaşım
+    try {
+      emailjs.send(
+        'servicexxxxxxxxxxxx',
+        'templatexxxxxxxxxxxxx',
+        data,
+        'tPxxxxxxxxxxxxxxxx'
+      )
+        .then((result) => {
+          console.log('SUCCESS!', result.text)
+          setGonderildi(true)
+          form.current.reset()
+          setYukleniyor(false)
+        })
+        .catch((error) => {
+          console.log('FAILED...', error.text)
+          
+          // Hata detaylarını kontrol et
+          if (error.text && error.text.includes('insufficient authentication scopes')) {
+            setHata('Gmail API yetkilendirme hatası. Lütfen EmailJS hesabınızda Gmail servisini yeniden yapılandırın.')
+          } else {
+            setHata(`Mesajınız gönderilirken bir hata oluştu: ${error.text || 'Bilinmeyen hata'}`)
+          }
+          
+          setYukleniyor(false)
+        })
+    } catch (error) {
+      console.error('Beklenmeyen hata:', error)
+      setHata('Beklenmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyin.')
+      setYukleniyor(false)
+    }
   }
 
   return (
@@ -43,62 +86,66 @@ const Iletisim = () => {
           
           <div className="iletisim-bilgi">
             <h3>E-posta</h3>
-            <p>info@arabaalimsatim.com</p>
+            <p>toulouse663831@gmail.com</p>
             <p>destek@arabaalimsatim.com</p>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="iletisim-form">
+        <form ref={form} onSubmit={sendEmail} className="iletisim-form">
           <div className="form-group">
-            <label htmlFor="ad">Adınız Soyadınız</label>
+            <label htmlFor="user_name">Adınız Soyadınız</label>
             <input
               type="text"
-              id="ad"
-              name="ad"
-              value={formData.ad}
-              onChange={handleChange}
+              id="user_name"
+              name="user_name"
               required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">E-posta Adresiniz</label>
+            <label htmlFor="user_email">E-posta Adresiniz</label>
             <input
               type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
+              id="user_email"
+              name="user_email"
               required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="konu">Konu</label>
+            <label htmlFor="subject">Konu</label>
             <input
               type="text"
-              id="konu"
-              name="konu"
-              value={formData.konu}
-              onChange={handleChange}
+              id="subject"
+              name="subject"
               required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="mesaj">Mesajınız</label>
+            <label htmlFor="message">Mesajınız</label>
             <textarea
-              id="mesaj"
-              name="mesaj"
-              value={formData.mesaj}
-              onChange={handleChange}
+              id="message"
+              name="message"
               rows="4"
               required
             />
           </div>
 
-          <button type="submit" className="submit-btn">
-            Gönder
+          {gonderildi && (
+            <div className="success-message">
+              Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.
+            </div>
+          )}
+
+          {hata && (
+            <div className="error-message">
+              {hata}
+            </div>
+          )}
+
+          <button type="submit" className="submit-btn" disabled={yukleniyor}>
+            {yukleniyor ? 'Gönderiliyor...' : 'Gönder'}
           </button>
         </form>
       </div>

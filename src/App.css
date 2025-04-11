@@ -45,4 +45,17 @@ p {
   .container {
     padding: 0 0.5rem;
   }
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .App {
+    padding-bottom: 250px; /* Mobilde footer daha yüksek olabilir */
+  }
 } 

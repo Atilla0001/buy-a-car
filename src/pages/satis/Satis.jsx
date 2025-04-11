@@ -9,8 +9,11 @@ const Satis = () => {
     kilometre: '',
     fiyat: '',
     aciklama: '',
-    resimler: []
+    fotograflar: []
   })
+
+  const [yukleniyor, setYukleniyor] = useState(false)
+  const [mesaj, setMesaj] = useState({ tip: '', icerik: '' })
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -20,16 +23,57 @@ const Satis = () => {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleFileChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      fotograflar: Array.from(e.target.files)
+    }))
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Form gönderme işlemi burada yapılacak
-    console.log('Form verileri:', formData)
+    setYukleniyor(true)
+    setMesaj({ tip: '', icerik: '' })
+
+    try {
+      // Form verilerini kontrol et
+      if (!formData.marka || !formData.model || !formData.yil || !formData.kilometre || !formData.fiyat || !formData.aciklama) {
+        throw new Error('Lütfen tüm alanları doldurun')
+      }
+
+      // API'ye gönderme işlemi burada yapılacak
+      // Örnek: await axios.post('/api/satis', formData)
+
+      setMesaj({
+        tip: 'success',
+        icerik: 'İlanınız başarıyla yayınlandı!'
+      })
+
+      // Formu temizle
+      setFormData({
+        marka: '',
+        model: '',
+        yil: '',
+        kilometre: '',
+        fiyat: '',
+        aciklama: '',
+        fotograflar: []
+      })
+
+    } catch (error) {
+      setMesaj({
+        tip: 'error',
+        icerik: error.message || 'Bir hata oluştu. Lütfen tekrar deneyin.'
+      })
+    } finally {
+      setYukleniyor(false)
+    }
   }
 
   return (
     <div className="satis-container">
-      <h1>Aracınızı Satışa Çıkarın</h1>
-      <form onSubmit={handleSubmit} className="satis-form">
+      <h1>Araç Satış İlanı Oluştur</h1>
+      <form className="satis-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="marka">Marka</label>
           <input
@@ -38,6 +82,7 @@ const Satis = () => {
             name="marka"
             value={formData.marka}
             onChange={handleChange}
+            placeholder="Örn: BMW, Mercedes, Audi"
             required
           />
         </div>
@@ -50,6 +95,7 @@ const Satis = () => {
             name="model"
             value={formData.model}
             onChange={handleChange}
+            placeholder="Örn: 320i, C200, A4"
             required
           />
         </div>
@@ -62,6 +108,9 @@ const Satis = () => {
             name="yil"
             value={formData.yil}
             onChange={handleChange}
+            placeholder="Örn: 2020"
+            min="1900"
+            max={new Date().getFullYear()}
             required
           />
         </div>
@@ -74,6 +123,8 @@ const Satis = () => {
             name="kilometre"
             value={formData.kilometre}
             onChange={handleChange}
+            placeholder="Örn: 50000"
+            min="0"
             required
           />
         </div>
@@ -86,6 +137,8 @@ const Satis = () => {
             name="fiyat"
             value={formData.fiyat}
             onChange={handleChange}
+            placeholder="Örn: 1500000"
+            min="0"
             required
           />
         </div>
@@ -97,24 +150,36 @@ const Satis = () => {
             name="aciklama"
             value={formData.aciklama}
             onChange={handleChange}
-            rows="4"
+            placeholder="Aracınız hakkında detaylı bilgi verin"
             required
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="resimler">Araç Fotoğrafları</label>
-          <input
-            type="file"
-            id="resimler"
-            name="resimler"
-            multiple
-            accept="image/*"
-          />
+          <label htmlFor="fotograflar">Fotoğraflar</label>
+          <div className="file-upload">
+            <input
+              type="file"
+              id="fotograflar"
+              name="fotograflar"
+              onChange={handleFileChange}
+              multiple
+              accept="image/*"
+            />
+            <label htmlFor="fotograflar" className="file-upload-label">
+              Fotoğraf Seçin veya Sürükleyin
+            </label>
+          </div>
         </div>
 
-        <button type="submit" className="submit-btn">
-          İlanı Yayınla
+        {mesaj.icerik && (
+          <div className={`mesaj ${mesaj.tip}`}>
+            {mesaj.icerik}
+          </div>
+        )}
+
+        <button type="submit" className="submit-btn" disabled={yukleniyor}>
+          {yukleniyor ? 'Yayınlanıyor...' : 'İlanı Yayınla'}
         </button>
       </form>
     </div>
