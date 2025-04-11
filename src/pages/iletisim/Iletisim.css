@@ -1,0 +1,102 @@
+.iletisim-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.iletisim-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.iletisim-content h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.iletisim-bilgileri {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.iletisim-bilgi {
+  text-align: center;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.iletisim-bilgi h3 {
+  color: #007bff;
+  margin-bottom: 1rem;
+}
+
+.iletisim-bilgi p {
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+.iletisim-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .iletisim-container {
+    padding: 1rem;
+  }
+  
+  .iletisim-content {
+    padding: 1rem;
+  }
+  
+  .iletisim-bilgileri {
+    grid-template-columns: 1fr;
+  }
+} 

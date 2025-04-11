@@ -1,0 +1,72 @@
+.hakkimizda-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.hakkimizda-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hakkimizda-content h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+.hakkimizda-section {
+  margin-bottom: 2rem;
+}
+
+.hakkimizda-section h2 {
+  color: #007bff;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.hakkimizda-section p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.ozellikler-listesi {
+  list-style-type: none;
+  padding: 0;
+}
+
+.ozellikler-listesi li {
+  color: #666;
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.ozellikler-listesi li:before {
+  content: "✓";
+  color: #007bff;
+  position: absolute;
+  left: 0;
+}
+
+@media (max-width: 768px) {
+  .hakkimizda-container {
+    padding: 1rem;
+  }
+  
+  .hakkimizda-content {
+    padding: 1rem;
+  }
+  
+  .hakkimizda-content h1 {
+    font-size: 2rem;
+  }
+  
+  .hakkimizda-section h2 {
+    font-size: 1.5rem;
+  }
+} 
