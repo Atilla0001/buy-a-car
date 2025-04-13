@@ -1,34 +1,34 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Navbar from './components/navbar/Navbar'
-import Footer from './assets/components/footer/Footer'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import Home from './pages/home/Home'
-import Arabalar from './pages/arabalar/Arabalar'
-import Satis from './pages/satis/Satis'
-import Hakkimizda from './pages/hakkimizda/Hakkimizda'
-import Iletisim from './pages/iletisim/Iletisim'
-import GizlilikPolitikasi from './pages/gizlilik/Gizlilik'
-import KullanimKosullari from './pages/kullanim-kosullari/KullanimKosullari'
-import CerezPolitikasi from './pages/cerez-politikasi/CerezPolitikasi'
+import Cars from './pages/cars/Cars'
+import Sell from './pages/sell/Sell'
+import About from './pages/about/About'
+import Contact from './pages/contact/Contact'
+import CookiePolicy from './pages/cookie-policy/CookiePolicy'
+import TermsOfUse from './pages/terms-of-use/TermsOfUse'
+import Privacy from './pages/privacy/Privacy'
 import './App.css'
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="app">
         <Navbar />
-        <div style={{ marginTop: '80px' }}>
+        <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/arabalar" element={<Arabalar />} />
-            <Route path="/satis" element={<Satis />} />
-            <Route path="/hakkimizda" element={<Hakkimizda />} />
-            <Route path="/iletisim" element={<Iletisim />} />
-            <Route path="/gizlilik-politikasi" element={<GizlilikPolitikasi />} />
-            <Route path="/kullanim-kosullari" element={<KullanimKosullari />} />
-            <Route path="/cerez-politikasi" element={<CerezPolitikasi />} />
+            <Route path="/cars" element={<Cars />} />
+            <Route path="/sell" element={<Sell />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/cookie-policy" element={<CookiePolicy />} />
+            <Route path="/terms-of-use" element={<TermsOfUse />} />
+            <Route path="/privacy" element={<Privacy />} />
           </Routes>
-        </div>
+        </main>
         <Footer />
       </div>
     </Router>
