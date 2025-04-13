@@ -12,11 +12,6 @@
   overflow: hidden;
 }
 
-.slider-container {
-  position: relative;
-  height: 100%;
-}
-
 .slide {
   position: absolute;
   top: 0;
@@ -25,7 +20,7 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 1s ease-in-out;
   display: flex;
   align-items: center;
@@ -42,10 +37,6 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
-.slide.active {
-  opacity: 1;
-}
-
 .slide-content {
   position: relative;
   max-width: 800px;
@@ -53,6 +44,14 @@
   color: white;
   padding: 0 20px;
   z-index: 1;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.slide-content.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .slide-content h1 {
@@ -97,14 +96,13 @@
 .featured-cars {
   padding: 80px 20px;
   background-color: #f8f9fa;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.featured-cars.visible {
-  opacity: 1;
-  transform: translateY(0);
+.featured-cars h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #333;
 }
 
 .section-header {
@@ -217,11 +215,6 @@
   color: #0056b3;
 }
 
-.view-all-container {
-  text-align: center;
-  margin-top: 40px;
-}
-
 .view-all-button {
   display: inline-block;
   background-color: #007bff;
@@ -231,6 +224,7 @@
   text-decoration: none;
   font-weight: 600;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 40px;
 }
 
 .view-all-button:hover {
@@ -242,19 +236,18 @@
 .services {
   padding: 80px 20px;
   background-color: white;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.services.visible {
-  opacity: 1;
-  transform: translateY(0);
+.services h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #333;
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 30px;
   max-width: 1200px;
   margin: 0 auto;
@@ -298,20 +291,19 @@
 }
 
 /* Neden Biz */
-.why-us {
+.why-choose-us {
   padding: 80px 20px;
   background-color: #f8f9fa;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.why-us.visible {
-  opacity: 1;
-  transform: translateY(0);
+.why-choose-us h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #333;
 }
 
-.advantages-grid {
+.reasons-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 30px;
@@ -319,7 +311,7 @@
   margin: 0 auto;
 }
 
-.advantage-card {
+.reason-card {
   text-align: center;
   padding: 30px;
   border-radius: 10px;
@@ -328,31 +320,18 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.advantage-card:hover {
+.reason-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-.advantage-icon {
-  width: 70px;
-  height: 70px;
-  background-color: #28a745;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 20px;
-  font-size: 1.8rem;
-}
-
-.advantage-card h3 {
+.reason-card h3 {
   font-size: 1.3rem;
   margin-bottom: 15px;
   color: #333;
 }
 
-.advantage-card p {
+.reason-card p {
   color: #666;
   line-height: 1.6;
 }
@@ -366,27 +345,14 @@
   background-attachment: fixed;
   color: white;
   text-align: center;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.contact-cta.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.cta-content {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.cta-content h2 {
+.contact-cta h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
 
-.cta-content p {
+.contact-cta p {
   font-size: 1.2rem;
   margin-bottom: 2rem;
   opacity: 0.9;
@@ -411,18 +377,18 @@
 /* Responsive Tasarım */
 @media (max-width: 768px) {
   .slide-content h1 {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
   }
   
   .slide-content p {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
   
   .section-header h2 {
     font-size: 2rem;
   }
   
-  .cars-grid, .services-grid, .advantages-grid {
+  .cars-grid, .services-grid, .reasons-grid {
     grid-template-columns: 1fr;
   }
   
@@ -433,18 +399,18 @@
 
 @media (max-width: 480px) {
   .slide-content h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
   
   .section-header h2 {
     font-size: 1.8rem;
   }
   
-  .cta-content h2 {
-    font-size: 1.8rem;
+  .contact-cta h2 {
+    font-size: 2rem;
   }
   
-  .cta-content p {
+  .contact-cta p {
     font-size: 1rem;
   }
 } 

@@ -7,7 +7,6 @@ const Arabalar = () => {
   const [selectedYear, setSelectedYear] = useState('')
   const [selectedPrice, setSelectedPrice] = useState('')
 
-  // Örnek araç verileri
   const cars = [
     {
       id: 1,
@@ -15,7 +14,7 @@ const Arabalar = () => {
       brand: 'BMW',
       model: '320i',
       year: '2022',
-      price: '1.250.000 TL',
+      price: '39.063 €',
       features: ['Automatique', 'Essence', 'Berline']
     },
     {
@@ -24,7 +23,7 @@ const Arabalar = () => {
       brand: 'Mercedes',
       model: 'C200',
       year: '2021',
-      price: '1.350.000 TL',
+      price: '42.188 €',
       features: ['Automatique', 'Diesel', 'Berline']
     },
     {
@@ -33,82 +32,68 @@ const Arabalar = () => {
       brand: 'Audi',
       model: 'A4',
       year: '2023',
-      price: '1.450.000 TL',
+      price: '45.313 €',
       features: ['Automatique', 'Essence', 'Berline']
     }
   ]
 
-  // Filtreleme fonksiyonu
+  const brands = ['BMW', 'Mercedes', 'Audi', 'Volkswagen', 'Renault', 'Peugeot']
+  const years = ['2023', '2022', '2021', '2020', '2019']
+  const priceRanges = [
+    '0 - 20.000 €',
+    '20.000 € - 40.000 €',
+    '40.000 € - 60.000 €',
+    '60.000 € et plus'
+  ]
+
   const filteredCars = cars.filter(car => {
     return (
       (!selectedBrand || car.brand === selectedBrand) &&
-      (!selectedModel || car.model === selectedModel) &&
       (!selectedYear || car.year === selectedYear) &&
-      (!selectedPrice || car.price === selectedPrice)
+      (!selectedPrice || car.price <= parseInt(selectedPrice))
     )
   })
 
   return (
-    <div className="cars-container">
-      <div className="cars-header">
-        <h1>Nos Voitures</h1>
-        <p>Découvrez notre sélection de véhicules de qualité</p>
-      </div>
+    <div className="arabalar-container">
+      <h1>Nos Voitures</h1>
+      <p>Découvrez notre sélection de véhicules de qualité</p>
 
-      <div className="filters-section">
+      <div className="filters">
         <div className="filter-group">
-          <label htmlFor="brand">Marque</label>
-          <select
-            id="brand"
-            value={selectedBrand}
-            onChange={(e) => setSelectedBrand(e.target.value)}
-          >
+          <label>Marque</label>
+          <select value={selectedBrand} onChange={(e) => setSelectedBrand(e.target.value)}>
             <option value="">Toutes les marques</option>
-            <option value="BMW">BMW</option>
-            <option value="Mercedes">Mercedes</option>
-            <option value="Audi">Audi</option>
+            {brands.map(brand => (
+              <option key={brand} value={brand}>{brand}</option>
+            ))}
           </select>
         </div>
 
         <div className="filter-group">
-          <label htmlFor="model">Modèle</label>
-          <select
-            id="model"
-            value={selectedModel}
-            onChange={(e) => setSelectedModel(e.target.value)}
-          >
+          <label>Modèle</label>
+          <select value={selectedModel} onChange={(e) => setSelectedModel(e.target.value)}>
             <option value="">Tous les modèles</option>
-            <option value="320i">320i</option>
-            <option value="C200">C200</option>
-            <option value="A4">A4</option>
           </select>
         </div>
 
         <div className="filter-group">
-          <label htmlFor="year">Année</label>
-          <select
-            id="year"
-            value={selectedYear}
-            onChange={(e) => setSelectedYear(e.target.value)}
-          >
+          <label>Année</label>
+          <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
             <option value="">Toutes les années</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
+            {years.map(year => (
+              <option key={year} value={year}>{year}</option>
+            ))}
           </select>
         </div>
 
         <div className="filter-group">
-          <label htmlFor="price">Prix</label>
-          <select
-            id="price"
-            value={selectedPrice}
-            onChange={(e) => setSelectedPrice(e.target.value)}
-          >
+          <label>Prix</label>
+          <select value={selectedPrice} onChange={(e) => setSelectedPrice(e.target.value)}>
             <option value="">Tous les prix</option>
-            <option value="1.250.000 TL">1.250.000 TL</option>
-            <option value="1.350.000 TL">1.350.000 TL</option>
-            <option value="1.450.000 TL">1.450.000 TL</option>
+            {priceRanges.map(range => (
+              <option key={range} value={range}>{range}</option>
+            ))}
           </select>
         </div>
       </div>
@@ -135,8 +120,7 @@ const Arabalar = () => {
 
       {filteredCars.length === 0 && (
         <div className="no-results">
-          <h2>Aucun véhicule trouvé</h2>
-          <p>Veuillez ajuster vos critères de recherche</p>
+          <p>Aucun véhicule ne correspond à vos critères de recherche.</p>
         </div>
       )}
     </div>

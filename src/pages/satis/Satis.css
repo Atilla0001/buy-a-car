@@ -1,377 +1,121 @@
 .satis-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  position: relative;
 }
 
-/* Decorative elements */
-.satis-container::before,
-.satis-container::after {
-  content: '';
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  z-index: -1;
-  opacity: 0.1;
-  animation: float 8s ease-in-out infinite;
+.satis-form-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.satis-container::before {
-  background: linear-gradient(135deg, #2c5282, #4299e1);
-  top: -100px;
-  left: -100px;
-  animation-delay: 0s;
-}
-
-.satis-container::after {
-  background: linear-gradient(135deg, #4299e1, #2c5282);
-  bottom: -100px;
-  right: -100px;
-  animation-delay: -4s;
-}
-
-/* Floating car icons */
-.car-icon {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  opacity: 0.15;
-  z-index: -1;
-}
-
-.car-icon-1 {
-  top: 10%;
-  left: 5%;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="%232c5282" d="M544 192h-16L419.22 56.02A64 64 0 0 0 369.24 32H155.33c-26.3 0-45 32.79-18 62.17L242 192h-96a64 64 0 0 0-64 64v160a64 64 0 0 0 64 64h512a64 64 0 0 0 64-64V256a64 64 0 0 0-64-64zM200 96a16 16 0 1 1 0 32 16 16 0 0 1 0-32zm72 272a80 80 0 1 1 80-80 80 80 0 0 1-80 80zm288 0a80 80 0 1 1 80-80 80 80 0 0 1-80 80zm-288-96a16 16 0 1 1 0-32 16 16 0 0 1 0 32zm288 0a16 16 0 1 1 0-32 16 16 0 0 1 0 32z"/></svg>');
-  animation: float 10s ease-in-out infinite;
-}
-
-.car-icon-2 {
-  top: 30%;
-  right: 5%;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="%232c5282" d="M544 192h-16L419.22 56.02A64 64 0 0 0 369.24 32H155.33c-26.3 0-45 32.79-18 62.17L242 192h-96a64 64 0 0 0-64 64v160a64 64 0 0 0 64 64h512a64 64 0 0 0 64-64V256a64 64 0 0 0-64-64zM200 96a16 16 0 1 1 0 32 16 16 0 0 1 0-32zm72 272a80 80 0 1 1 80-80 80 80 0 0 1-80 80zm288 0a80 80 0 1 1 80-80 80 80 0 0 1-80 80zm-288-96a16 16 0 1 1 0-32 16 16 0 0 1 0 32zm288 0a16 16 0 1 1 0-32 16 16 0 0 1 0 32z"/></svg>');
-  animation: float 12s ease-in-out infinite;
-  animation-delay: -2s;
-}
-
-.car-icon-3 {
-  bottom: 10%;
-  left: 10%;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="%232c5282" d="M544 192h-16L419.22 56.02A64 64 0 0 0 369.24 32H155.33c-26.3 0-45 32.79-18 62.17L242 192h-96a64 64 0 0 0-64 64v160a64 64 0 0 0 64 64h512a64 64 0 0 0 64-64V256a64 64 0 0 0-64-64zM200 96a16 16 0 1 1 0 32 16 16 0 0 1 0-32zm72 272a80 80 0 1 1 80-80 80 80 0 0 1-80 80zm288 0a80 80 0 1 1 80-80 80 80 0 0 1-80 80zm-288-96a16 16 0 1 1 0-32 16 16 0 0 1 0 32zm288 0a16 16 0 1 1 0-32 16 16 0 0 1 0 32z"/></svg>');
-  animation: float 9s ease-in-out infinite;
-  animation-delay: -5s;
-}
-
-/* Animated lines */
-.animated-line {
-  position: absolute;
-  background: linear-gradient(90deg, transparent, #2c5282, transparent);
-  height: 2px;
-  width: 100px;
-  opacity: 0.3;
-  z-index: -1;
-}
-
-.line-1 {
-  top: 15%;
-  left: 0;
-  transform: rotate(45deg);
-  animation: slide 8s linear infinite;
-}
-
-.line-2 {
-  top: 60%;
-  right: 0;
-  transform: rotate(-45deg);
-  animation: slide 10s linear infinite;
-  animation-delay: -3s;
-}
-
-.line-3 {
-  bottom: 20%;
-  left: 0;
-  transform: rotate(30deg);
-  animation: slide 12s linear infinite;
-  animation-delay: -6s;
-}
-
-/* Road animation */
-.road {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100px;
-  background: #333;
-  overflow: hidden;
-  z-index: 0;
-}
-
-.road::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: #fff;
-  transform: translateY(-50%);
-}
-
-.road::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: #fff;
-  transform: translateY(-50%);
-  animation: roadMove 1s linear infinite;
-}
-
-.car {
-  position: absolute;
-  bottom: 20px;
-  left: -100px;
-  width: 60px;
-  height: 30px;
-  background: #ff0000;
-  border-radius: 10px;
-  animation: carMove 3s linear infinite;
-  z-index: 0;
-}
-
-.car::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: 10px;
-  width: 40px;
-  height: 20px;
-  background: #ff0000;
-  border-radius: 5px;
-}
-
-.car-2 {
-  bottom: 40px;
-  animation-delay: 1s;
-  background: #0000ff;
-}
-
-.car-2::before {
-  background: #0000ff;
-}
-
-.car-3 {
-  bottom: 60px;
-  animation-delay: 2s;
-  background: #00ff00;
-}
-
-.car-3::before {
-  background: #00ff00;
-}
-
-/* Animations */
-@keyframes float {
-  0% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(5deg);
-  }
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-}
-
-@keyframes slide {
-  0% {
-    transform: translateX(-100px) rotate(45deg);
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateX(calc(100vw + 100px)) rotate(45deg);
-    opacity: 0;
-  }
-}
-
-@keyframes roadMove {
-  0% {
-    transform: translateY(-50%) translateX(0);
-  }
-  100% {
-    transform: translateY(-50%) translateX(-100%);
-  }
-}
-
-@keyframes carMove {
-  0% {
-    left: -100px;
-  }
-  100% {
-    left: 100%;
-  }
-}
-
-/* Main form styles - keeping these unchanged */
-h1 {
+.satis-form-container h1 {
   text-align: center;
-  margin-bottom: 2rem;
   color: #333;
+  margin-bottom: 2rem;
+}
+
+.satis-form-container p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
 }
 
 .satis-form {
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-label {
+.form-group label {
   display: block;
   margin-bottom: 0.5rem;
   color: #333;
   font-weight: 500;
 }
 
-input,
-textarea {
+.form-group input,
+.form-group textarea,
+.form-group select {
   width: 100%;
-  padding: 0.8rem;
+  padding: 0.75rem;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 4px;
   font-size: 1rem;
 }
 
-textarea {
-  min-height: 100px;
+.form-group textarea {
+  height: 150px;
   resize: vertical;
 }
 
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
 .file-upload {
-  position: relative;
-  width: 100%;
-}
-
-.file-upload input[type="file"] {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.file-upload-label {
-  display: block;
-  padding: 1rem;
-  background: #f8f9fa;
   border: 2px dashed #ddd;
-  border-radius: 5px;
+  padding: 2rem;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease;
 }
 
-.file-upload-label:hover {
-  background: #e9ecef;
-  border-color: #adb5bd;
+.file-upload:hover {
+  border-color: #007bff;
 }
 
-.submit-btn {
-  width: 100%;
-  padding: 1rem;
-  background: #007bff;
+.file-upload p {
+  margin: 0;
+  color: #666;
+}
+
+.submit-button {
+  grid-column: 1 / -1;
+  background-color: #007bff;
   color: white;
+  padding: 1rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
-.submit-btn:hover {
-  background: #0056b3;
+.submit-button:hover {
+  background-color: #0056b3;
 }
 
-.submit-btn:disabled {
-  background: #ccc;
+.submit-button:disabled {
+  background-color: #ccc;
   cursor: not-allowed;
 }
 
-.mesaj {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.mesaj.success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-.mesaj.error {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
+  .satis-form {
+    grid-template-columns: 1fr;
+  }
+  
   .satis-container {
     padding: 1rem;
   }
   
-  .road {
-    height: 60px;
-  }
-  
-  .car {
-    width: 40px;
-    height: 20px;
-  }
-  
-  .car::before {
-    width: 30px;
-    height: 15px;
-  }
-  
-  .satis-form {
-    padding: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .road {
-    height: 40px;
-  }
-  
-  .car {
-    width: 30px;
-    height: 15px;
-  }
-  
-  .car::before {
-    width: 20px;
-    height: 10px;
-  }
-  
-  .satis-form {
+  .satis-form-container {
     padding: 1rem;
   }
 } 

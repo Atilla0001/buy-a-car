@@ -12,44 +12,50 @@ const Satis = () => {
     fotograflar: []
   })
 
-  const [yukleniyor, setYukleniyor] = useState(false)
-  const [mesaj, setMesaj] = useState({ tip: '', icerik: '' })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [message, setMessage] = useState({ type: '', text: '' })
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
+    setFormData(prevState => ({
+      ...prevState,
       [name]: value
     }))
   }
 
   const handleFileChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      fotograflar: Array.from(e.target.files)
+    const files = Array.from(e.target.files)
+    setFormData(prevState => ({
+      ...prevState,
+      fotograflar: files
     }))
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setYukleniyor(true)
-    setMesaj({ tip: '', icerik: '' })
+    setIsSubmitting(true)
+    setMessage({ type: '', text: '' })
+
+    // Form validation
+    const requiredFields = ['marka', 'model', 'yil', 'kilometre', 'fiyat']
+    const emptyFields = requiredFields.filter(field => !formData[field])
+
+    if (emptyFields.length > 0) {
+      setMessage({
+        type: 'error',
+        text: 'Lütfen tüm zorunlu alanları doldurun.'
+      })
+      setIsSubmitting(false)
+      return
+    }
 
     try {
-      // Form verilerini kontrol et
-      if (!formData.marka || !formData.model || !formData.yil || !formData.kilometre || !formData.fiyat || !formData.aciklama) {
-        throw new Error('Lütfen tüm alanları doldurun')
-      }
-
-      // API'ye gönderme işlemi burada yapılacak
-      // Örnek: await axios.post('/api/satis', formData)
-
-      setMesaj({
-        tip: 'success',
-        icerik: 'İlanınız başarıyla yayınlandı!'
+      // API call would go here
+      await new Promise(resolve => setTimeout(resolve, 1500)) // Simulated API call
+      setMessage({
+        type: 'success',
+        text: 'İlanınız başarıyla yayınlandı!'
       })
-
-      // Formu temizle
       setFormData({
         marka: '',
         model: '',
@@ -59,129 +65,133 @@ const Satis = () => {
         aciklama: '',
         fotograflar: []
       })
-
     } catch (error) {
-      setMesaj({
-        tip: 'error',
-        icerik: error.message || 'Bir hata oluştu. Lütfen tekrar deneyin.'
+      setMessage({
+        type: 'error',
+        text: 'Bir hata oluştu. Lütfen tekrar deneyin.'
       })
     } finally {
-      setYukleniyor(false)
+      setIsSubmitting(false)
     }
   }
 
   return (
     <div className="satis-container">
-      <h1>Araç Satış İlanı Oluştur</h1>
-      <form className="satis-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="marka">Marka</label>
-          <input
-            type="text"
-            id="marka"
-            name="marka"
-            value={formData.marka}
-            onChange={handleChange}
-            placeholder="Örn: BMW, Mercedes, Audi"
-            required
-          />
-        </div>
+      <div className="satis-form-container">
+        <h1>Vendre Votre Voiture</h1>
+        <p>Remplissez le formulaire ci-dessous pour vendre votre voiture</p>
 
-        <div className="form-group">
-          <label htmlFor="model">Model</label>
-          <input
-            type="text"
-            id="model"
-            name="model"
-            value={formData.model}
-            onChange={handleChange}
-            placeholder="Örn: 320i, C200, A4"
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="yil">Yıl</label>
-          <input
-            type="number"
-            id="yil"
-            name="yil"
-            value={formData.yil}
-            onChange={handleChange}
-            placeholder="Örn: 2020"
-            min="1900"
-            max={new Date().getFullYear()}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="kilometre">Kilometre</label>
-          <input
-            type="number"
-            id="kilometre"
-            name="kilometre"
-            value={formData.kilometre}
-            onChange={handleChange}
-            placeholder="Örn: 50000"
-            min="0"
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="fiyat">Fiyat (TL)</label>
-          <input
-            type="number"
-            id="fiyat"
-            name="fiyat"
-            value={formData.fiyat}
-            onChange={handleChange}
-            placeholder="Örn: 1500000"
-            min="0"
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="aciklama">Açıklama</label>
-          <textarea
-            id="aciklama"
-            name="aciklama"
-            value={formData.aciklama}
-            onChange={handleChange}
-            placeholder="Aracınız hakkında detaylı bilgi verin"
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="fotograflar">Fotoğraflar</label>
-          <div className="file-upload">
-            <input
-              type="file"
-              id="fotograflar"
-              name="fotograflar"
-              onChange={handleFileChange}
-              multiple
-              accept="image/*"
-            />
-            <label htmlFor="fotograflar" className="file-upload-label">
-              Fotoğraf Seçin veya Sürükleyin
-            </label>
-          </div>
-        </div>
-
-        {mesaj.icerik && (
-          <div className={`mesaj ${mesaj.tip}`}>
-            {mesaj.icerik}
+        {message.text && (
+          <div className={`mesaj ${message.type}`}>
+            {message.text}
           </div>
         )}
 
-        <button type="submit" className="submit-btn" disabled={yukleniyor}>
-          {yukleniyor ? 'Yayınlanıyor...' : 'İlanı Yayınla'}
-        </button>
-      </form>
+        <form className="satis-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="marka">Marque</label>
+            <input
+              type="text"
+              id="marka"
+              name="marka"
+              value={formData.marka}
+              onChange={handleChange}
+              placeholder="Ex: BMW, Mercedes, Audi"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="model">Modèle</label>
+            <input
+              type="text"
+              id="model"
+              name="model"
+              value={formData.model}
+              onChange={handleChange}
+              placeholder="Ex: 320i, C200, A4"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="yil">Année</label>
+            <input
+              type="number"
+              id="yil"
+              name="yil"
+              value={formData.yil}
+              onChange={handleChange}
+              placeholder="Ex: 2020"
+              min="1900"
+              max={new Date().getFullYear()}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="kilometre">Kilométrage</label>
+            <input
+              type="number"
+              id="kilometre"
+              name="kilometre"
+              value={formData.kilometre}
+              onChange={handleChange}
+              placeholder="Ex: 50000"
+              min="0"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="fiyat">Prix (€)</label>
+            <input
+              type="number"
+              id="fiyat"
+              name="fiyat"
+              value={formData.fiyat}
+              onChange={handleChange}
+              placeholder="Ex: 25000"
+              min="0"
+              required
+            />
+          </div>
+
+          <div className="form-group full-width">
+            <label htmlFor="aciklama">Description</label>
+            <textarea
+              id="aciklama"
+              name="aciklama"
+              value={formData.aciklama}
+              onChange={handleChange}
+              placeholder="Décrivez votre véhicule en détail..."
+            />
+          </div>
+
+          <div className="form-group full-width">
+            <label htmlFor="fotograflar">Photos</label>
+            <div className="file-upload">
+              <input
+                type="file"
+                id="fotograflar"
+                name="fotograflar"
+                onChange={handleFileChange}
+                multiple
+                accept="image/*"
+              />
+              <p>Glissez-déposez vos photos ici ou cliquez pour sélectionner</p>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="submit-button"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Publication en cours...' : 'Publier l\'Annonce'}
+          </button>
+        </form>
+      </div>
     </div>
   )
 }
