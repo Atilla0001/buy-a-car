@@ -21,10 +21,10 @@ const Navbar = () => {
 
       <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
         <li><Link to="/" onClick={() => setIsMenuOpen(false)}>Accueil</Link></li>
-        <li><Link to="/arabalar" onClick={() => setIsMenuOpen(false)}>Voitures</Link></li>
-        <li><Link to="/satis" onClick={() => setIsMenuOpen(false)}>Vendre</Link></li>
-        <li><Link to="/hakkimizda" onClick={() => setIsMenuOpen(false)}>À propos</Link></li>
-        <li><Link to="/iletisim" onClick={() => setIsMenuOpen(false)}>Contact</Link></li>
+        <li><Link to="/cars" onClick={() => setIsMenuOpen(false)}>Voitures</Link></li>
+        <li><Link to="/sell" onClick={() => setIsMenuOpen(false)}>Vendre</Link></li>
+        <li><Link to="/about" onClick={() => setIsMenuOpen(false)}>À propos</Link></li>
+        <li><Link to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link></li>
       </ul>
     </nav>
   )

@@ -16,9 +16,9 @@ const Footer = () => {
             <h3>Liens Rapides</h3>
             <ul>
               <li><Link to="/">Accueil</Link></li>
-              <li><Link to="/araclar">Voitures</Link></li>
-              <li><Link to="/hakkimizda">À propos</Link></li>
-              <li><Link to="/iletisim">Contact</Link></li>
+              <li><Link to="/cars">Voitures</Link></li>
+              <li><Link to="/about">À propos</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
             </ul>
           </div>
           
@@ -34,21 +34,16 @@ const Footer = () => {
         <div>
           <div className="footer-bottom">
           <div className="footer-links">
-            <Link to="/gizlilik-politikasi">Politique de Confidentialité</Link>
-            <Link to="/kullanim-kosullari">Conditions d'Utilisation</Link>
-            <Link to="/cerez-politikasi">Politique des Cookies</Link>
+            <Link to="/privacy">Politique de Confidentialité</Link>
+            <Link to="/terms-of-use">Conditions d'Utilisation</Link>
+            <Link to="/cookie-policy">Politique des Cookies</Link>
           </div>
           <div className="copyright">
             <p>&copy; {new Date().getFullYear()} Buy A Car. Tous droits réservés.</p>
-            
           </div>
         </div>
         <p className="developer-credit">Créé par Atilla Arslan</p>
-
         </div>
-        
-
-        
       </div>
     </footer>
   )
